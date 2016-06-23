@@ -1,4 +1,8 @@
 ﻿<?php
+
+
+
+/*
 // пример использования
 require_once "SendMailSmtpClass.php"; // подключаем класс
   
@@ -15,6 +19,23 @@ if($result === true){
     echo "Письмо успешно отправлено";
 }else{
     echo "Письмо не отправлено. Ошибка: " . $result;
+}
+*/
+
+$feed_url = "http://kazakh-tv.kz/rss-ru.xml";
+$content = file_get_contents($feed_url);
+$x = new SimpleXmlElement($content);
+
+$categories = array();
+$i=0;
+
+foreach($x->item as $entry) {
+     $cat = $entry->category."";
+     if (!in_array($cat, $categories)){
+         $categories[$i]=$cat;
+         echo "cat=".$cat."<br/>";
+         $i++;
+     }
 }
 
 
