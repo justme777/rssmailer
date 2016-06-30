@@ -43,5 +43,19 @@ class DataManager{
         echo "login=".$login." pass=".$pass;
     }
 
+    //POST
+    function createUser($email, $password){
+        $servername="localhost";
+        $database="rssmailer";
+        $username="root";
+        $password="";
+        $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
+        $statement = $pdo->prepare("INSERT INTO `rssmailer`.`users` (`email`) VALUES ( :email)");
+        $statement->execute(array(
+			'email' => $email,
+		));
+        $StatusUpdate = $statement->errorCode();
+        echo "code=".$StatusUpdate;      
+    }
 }
 ?>
