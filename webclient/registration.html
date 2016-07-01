@@ -104,7 +104,7 @@
         
             $.ajax({
                     type: "POST",
-                    url: "http://rssmailer/rest.php?name=createUser",
+                    url: "http://rssmailer/services/rest.php?name=createUser",
                     data: { email:em, password:pass},
                     dataType: 'html',
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
