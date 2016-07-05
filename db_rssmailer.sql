@@ -18,6 +18,7 @@
 --
 -- Table structure for table `user`
 --
+Use 'db_rssmailer'
 
 DROP TABLE IF EXISTS `user`;
 SET @saved_cs_client     = @@character_set_client;
