@@ -1,4 +1,10 @@
 ﻿<?php
+include("functions.php");
+$mng = new DataManager();
+echo "<pre>";
+$mng->getWidgets(1);
+echo "</pre>";
+
 /*
 $json = '{
     "title": "JavaScript: The Definitive Guide",
@@ -9,9 +15,5 @@ $book = json_decode($json);
 // access title of $book object
 echo $book->title;*/
 
-//echo "index page";
-/*include("functions.php");
-$mng = new DataManager();
-$mng->createWidget("test rss", 1);
-*/
+
 ?>

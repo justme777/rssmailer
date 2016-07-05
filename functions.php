@@ -82,5 +82,17 @@ class DataManager{
             var_dump($statement->errorInfo());
         }
     }
+
+    function getWidgets($userId){
+        
+        $statement = $this->getPDOStatement("select * from widgets where userId=:userId");
+        $statement->execute(array(
+            ':userId'=>$userId,
+        ));        
+        $result =$statement->fetchAll();
+        echo json_encode($result);
+    }
+
+
 }
 ?>
