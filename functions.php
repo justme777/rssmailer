@@ -72,10 +72,11 @@ class DataManager{
     }
 
     function createWidget($rss, $userId){
-        $statement = $this->getPDOStatement("INSERT INTO widgets(rss, userId) VALUES(:rss, :userId);");
+        $statement = $this->getPDOStatement("INSERT INTO widgets(rss, userId, guid) VALUES(:rss, :userId, :guid);");
         $statement->execute(array(
             ':rss' => $rss,
             ':userId'=>$userId,
+            ':guid'=>md5($rss."+".$userId),
         ));
 
         if($statement->errorCode()!="00000"){
@@ -84,13 +85,14 @@ class DataManager{
     }
 
     function getWidgets($userId){
-        
+
         $statement = $this->getPDOStatement("select * from widgets where userId=:userId");
         $statement->execute(array(
             ':userId'=>$userId,
         ));        
         $result =$statement->fetchAll();
         echo json_encode($result);
+
     }
 
 
