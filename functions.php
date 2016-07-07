@@ -1,4 +1,5 @@
-<?
+<?php 
+
 class DataManager{
     public $servername="localhost";
     public $database="db_rssmailer";
@@ -92,9 +93,30 @@ class DataManager{
         ));        
         $result =$statement->fetchAll();
         echo json_encode($result);
-
     }
 
+    function createSubscription($email, $guid){
+        $statement = $this->getPDOStatement("INSERT INTO subscriptions(email, guid) VALUES(:email, :guid);");
+        $statement->execute(array(
+            ':email' => $email,
+            ':guid'=>$guid,
+        ));
+        if($this->checkForError($statement)){
+            echo "Подписка успешно завершена!";
+        }
+    }
+
+    function checkForError($statement){
+        if($statement->errorCode()!="00000"){
+            var_dump($statement->errorInfo());
+        }else{
+            return true;
+        }
+    }
+
+    function checkForExistanceEmail($email){
+        return true;
+    }
 
 }
 ?>
