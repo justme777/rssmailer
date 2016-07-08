@@ -1,9 +1,4 @@
-<?php 
-
-header("Access-Control-Allow-Origin: http://rssmailerweb:8181");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Expose-Headers: Access-Control-Allow-Origin,Access-Control-Allow-Credentials");
-header('Access-Control-Allow-Origin: *');
+<?header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 include("functions.php");
 $manager = new DataManager();

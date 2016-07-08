@@ -36,19 +36,26 @@ class DataManager{
         }
     }
     
-    //POST
+    /*--------------------------------------USER--------------------------------------------------*/
     function createUser($email, $password){
-        $servername="localhost";
-        $database="rssmailer";
-        $username="root";
-        $password="";
-        $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
-        $statement = $pdo->prepare("INSERT INTO `rssmailer`.`users` (`email`) VALUES ( :email)");
+        $statement = $this->getPDOStatement("INSERT INTO users(email, password) VALUES(:email, :password);");
         $statement->execute(array(
-			'email' => $email,
-		));
-        $StatusUpdate = $statement->errorCode();
-        echo "code=".$StatusUpdate;      
+            ':email' => $email,
+            ':password'=>$password,
+        ));
+        if($this->checkForError($statement)){
+            echo "Регистрация успешно завершена!";
+        }    
+    }
+
+    function getUser($email, $password){
+        $statement = $this->getPDOStatement("select * from users where email=:email and password=:password");
+        $statement->execute(array(
+            ':email'=>$email,
+            ':password'=>$password,
+        ));        
+        $result =$statement->fetch();
+        echo json_encode($result);        
     }
 
     function getPDOStatement($query){
