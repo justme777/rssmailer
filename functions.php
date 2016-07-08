@@ -36,18 +36,6 @@ class DataManager{
         }
     }
     
-    function testGet(){
-        echo "function testGet()";
-    }
-
-    function testPost(){
-        echo "function testPost()";
-    }
-
-    function testPostParams($login, $pass){
-        echo "login=".$login." pass=".$pass;
-    }
-
     //POST
     function createUser($email, $password){
         $servername="localhost";
@@ -114,8 +102,12 @@ class DataManager{
         }
     }
 
-    function checkForExistanceEmail($email){
+    function checkSubscriptionForExistance($email){
         return true;
+    }
+
+    function checkGUIDForExistance($guid){
+
     }
 
 }
