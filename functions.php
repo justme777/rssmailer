@@ -59,11 +59,7 @@ class DataManager{
     }
 
     function getPDOStatement($query){
-        $servername="localhost";
-        $database="db_rssmailer";
-        $username="root";
-        $password="";
-        $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
+        $pdo = new PDO("mysql:host=$this->servername;dbname=$this->database", $this->username, $this->password,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
         return $pdo->prepare($query);
     }
 
