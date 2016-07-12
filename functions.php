@@ -1,5 +1,5 @@
-<?php 
-
+<?php
+header('Content-Type: text/html; charset=utf-8');
 class DataManager{
     public $servername="localhost";
     public $database="db_rssmailer";
@@ -34,6 +34,7 @@ class DataManager{
                 $i++;
             }
         }
+		echo "getCategories()";
     }
     
     /*--------------------------------------USER--------------------------------------------------*/
@@ -87,13 +88,20 @@ class DataManager{
     }
 
     function createSubscription($email, $guid){
-        $statement = $this->getPDOStatement("INSERT INTO subscriptions(email, guid) VALUES(:email, :guid);");
-        $statement->execute(array(
-            ':email' => $email,
-            ':guid'=>$guid,
-        ));
-        if($this->checkForError($statement)){
-            echo "Подписка успешно завершена!";
+        $isExist = $this->checkSubscriptionForExistance($email,$guid);
+        
+        if(!$isExist){
+            $statement = $this->getPDOStatement("INSERT INTO subscriptions(email, guid) VALUES(:email, :guid);");
+            $statement->execute(array(
+                ':email' => $email,
+                ':guid'=>$guid,
+            ));
+
+            if($this->checkForError($statement)){
+                echo "Подписка успешно завершена!";
+            }    
+        }else{
+            echo "Вы уже подписаны";
         }
     }
 
@@ -105,7 +113,14 @@ class DataManager{
         }
     }
 
-    function checkSubscriptionForExistance($email){
+    function checkSubscriptionForExistance($email,$guid){
+        $statement = $this->getPDOStatement("Select * from subscriptions where email=:email and guid=:guid");
+        $statement->execute(array(
+            ':email' => $email,
+            ':guid'=>$guid,
+        ));
+        $result =$statement->fetchAll();
+        if(count($result)==0) return false;
         return true;
     }
 
