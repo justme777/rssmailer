@@ -1,10 +1,13 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
+
+
 class DataManager{
-    public $servername="localhost";
-    public $database="db_rssmailer";
-    public $username="root";
-    public $password="";
+    
+   function __construct() {
+        include("config.php");
+    }
+
 
     function sendEmail(){
         require_once "SendMailSmtpClass.php"; 
