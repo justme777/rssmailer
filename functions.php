@@ -7,6 +7,15 @@ class DataManager{
         include("config.php");
     } 
 
+    function getWidgetSettings($widgetId){
+        $statement = $this->getPDOStatement("select * from widget_settings where widgetId=:widgetId");
+        $statement->execute(array(
+            ':widgetId'=>$widgetId,
+        ));        
+        $result =$statement->fetch();
+        echo json_encode($result);  
+    }
+
     function getNewsHtmlFromRSS($date, $rss){
         $content = file_get_contents($rss);
         $x = new SimpleXmlElement($content);
@@ -40,7 +49,29 @@ class DataManager{
     }
 
     function createWidgetSettings($widget_settings){
-        
+        $statement = $this->getPDOStatement("INSERT INTO widget_settings(email, password, sender_name, widgetId) VALUES(:email, :password, :sender_name,:widgetId);");
+        $statement->execute(array(
+            ':email' => $widget_settings["email"],
+            ':password'=>$widget_settings["password"],
+            ':sender_name'=>$widget_settings["sender_name"],
+            ':widgetId'=>$widget_settings["widgetId"],
+        ));
+        if($this->checkForError($statement)){
+            echo "Настройки успешно сохранены!";
+        }   
+    }
+
+    function updateWidgetSettings($widget_settings){
+        $statement = $this->getPDOStatement("update widget_settings set email=:email,password=:password,sender_name=:sender_name where widgetId=:widgetId;");
+        $statement->execute(array(
+            ':email' => $widget_settings["email"],
+            ':password'=>$widget_settings["password"],
+            ':sender_name'=>$widget_settings["sender_name"],
+            ':widgetId'=>$widget_settings["widgetId"],
+        ));
+        if($this->checkForError($statement)){
+            echo "Настройки успешно сохранены!";
+        }   
     }
 
     function getCategories(){
