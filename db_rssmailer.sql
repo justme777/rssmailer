@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES cp1251 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -26,7 +26,7 @@ CREATE TABLE `subscriptions` (
   `email` varchar(50) NOT NULL,
   `create_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subscriptions`
@@ -35,6 +35,7 @@ CREATE TABLE `subscriptions` (
 
 /*!40000 ALTER TABLE `subscriptions` DISABLE KEYS */;
 LOCK TABLES `subscriptions` WRITE;
+INSERT INTO `subscriptions` VALUES (12,'180649','ereke_enu@mail.ru','2016-07-07 11:34:48'),(13,'180649','ye.karakulov@kamaloil.kz','2016-07-07 11:36:34'),(14,'180649','qwe@mail.ru','2016-07-07 11:39:51'),(15,'180649','ereke_enu@mail.ru','2016-07-07 11:41:02'),(16,'180649','test@mail.ru','2016-07-07 11:56:37'),(17,'180649','test1@mail.ru','2016-07-07 11:57:04'),(18,'180649','ereke_enu@mail.ru','2016-07-07 11:59:56');
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `subscriptions` ENABLE KEYS */;
 
@@ -49,7 +50,7 @@ CREATE TABLE `users` (
   `password` varchar(50) NOT NULL,
   `reg_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
@@ -58,6 +59,7 @@ CREATE TABLE `users` (
 
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 LOCK TABLES `users` WRITE;
+INSERT INTO `users` VALUES (1,'ereke_enu@mail.ru','123456','2016-07-08 10:36:28');
 UNLOCK TABLES;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
