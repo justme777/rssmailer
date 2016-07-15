@@ -1,5 +1,6 @@
 <?header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+header('Content-Type: text/html; charset=utf-8');
 include("functions.php");
 $manager = new DataManager();
 
