@@ -1,27 +1,46 @@
-<?php
-header('Content-Type: text/html; charset=utf-8');
+<?
 
 
 class DataManager{
     
    function __construct() {
         include("config.php");
+    } 
+
+    function getNewsHtmlFromRSS($date, $rss){
+        $content = file_get_contents($rss);
+        $x = new SimpleXmlElement($content);
+        $html="";
+        foreach($x->item as $entry) {
+            $pubDate = $entry->pubDate;
+            if($pubDate==$date){
+                $title = $entry->title."";
+                $description = $entry->description."";
+                $link = $entry->link."";
+
+                $str ="<div style='clear: both;'>&nbsp;</div>";
+                $str.="<h2>".$title."</h2>";
+                $str.="<p>&nbsp;</p><div><p>".$description."</p></div>";
+                $str.="<a href='".$link."' target='_blank' rel='noopener'>Читать далее</a>";
+                $html.=$str;
+            }
+        }
+        echo $html;
     }
 
-
-    function sendEmail(){
+    function sendEmail($email, $subject, $text){
         require_once "SendMailSmtpClass.php"; 
-        $mailSMTP = new SendMailSmtpClass('ereke_enu@mail.ru', '***', 'ssl://smtp.mail.ru', 'Yerlan', 465); 
+        $mailSMTP = new SendMailSmtpClass('kazakhtvnews@mail.ru', 'qwe123!@#KTV', 'ssl://smtp.mail.ru', 'Kazakh TV Новости', 465); 
         $headers= "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=utf-8\r\n"; 
-        $headers .= "From: Yerlan <ereke_enu@mail.ru>\r\n"; 
-        $result =  $mailSMTP->send('almasmyltykbayev@mail.ru', 'Тема письма', 'Текст письма', $headers); 
+        $headers .= "From: Kazakh TV Новости <kazakhtvnews@mail.ru>\r\n"; 
+        $result =  $mailSMTP->send($email, $subject, $text, $headers); 
         //$result =  $mailSMTP->send('Кому письмо', 'Test', 'Текст письма', 'Заголовки письма');
-        if($result === true){
-            echo "Письмо успешно отправлено";
-        }else{
-            echo "Письмо не отправлено. Ошибка: " . $result;
-        }
+        echo $result;
+    }
+
+    function createWidgetSettings($widget_settings){
+        
     }
 
     function getCategories(){
