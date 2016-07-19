@@ -7,6 +7,7 @@ class DataManager{
         include("config.php");
     } 
 
+    /*----------------------------------WIDGET-----------------------------------------------------------*/
     function getWidgetSettings($widgetId){
         $statement = $this->getPDOStatement("select * from widget_settings where widgetId=:widgetId");
         $statement->execute(array(
@@ -42,7 +43,26 @@ class DataManager{
         }   
     }
 
-    function getNewsHtmlFromRSS($date, $rss){
+    function getHtmlFromRss($rss){
+        $content = file_get_contents($rss);
+        $x = new SimpleXmlElement($content);
+        $html="";
+        foreach($x->item as $entry) {
+            $title = $entry->title."";
+            $description = $entry->description."";
+            $link = $entry->link."";
+
+            $str ="<div style='clear: both;'>&nbsp;</div>";
+            $str.="<h2>".$title."</h2>";
+            $str.="<p>&nbsp;</p><div><p>".$description."</p></div>";
+            $str.="<a href='".$link."' target='_blank' rel='noopener'>Читать далее</a>";
+            $html.=$str;
+            
+        }
+        echo $html;
+    }
+
+    function getHtmlFromRssByDate($date, $rss){
         $content = file_get_contents($rss);
         $x = new SimpleXmlElement($content);
         $html="";
